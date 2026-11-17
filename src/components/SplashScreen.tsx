@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { translations, Language } from '../utils/translations';
 import { MeroBikeMark, MeroBikeWordmark } from './MeroBikeLogo';
 
@@ -20,6 +20,7 @@ export const SplashScreen: React.FC<Props> = ({
   const [entered, setEntered] = useState(false);
   const [fadingOut, setFadingOut] = useState(false);
   const [bgError, setBgError] = useState(false);
+  const mountedAt = useRef(Date.now());
   const t = translations[language];
 
   // Trigger gentle mount fade-in without blocking readiness
@@ -30,15 +31,22 @@ export const SplashScreen: React.FC<Props> = ({
     return () => cancelAnimationFrame(frame);
   }, []);
 
-  // Dismiss immediately once existing app initialization completes (no artificial delay)
+  // Keep the splash visible briefly even when app initialization is very fast.
   useEffect(() => {
     if (!isReady) return;
-    setFadingOut(true);
-    const doneTimer = setTimeout(() => {
-      onFinish();
-    }, 220);
+
+    const minVisibleMs = 2000;
+    const remainingMs = Math.max(0, minVisibleMs - (Date.now() - mountedAt.current));
+    const readyTimer = setTimeout(() => setFadingOut(true), remainingMs);
+    return () => clearTimeout(readyTimer);
+  }, [isReady]);
+
+  useEffect(() => {
+    if (!fadingOut) return;
+
+    const doneTimer = setTimeout(onFinish, 220);
     return () => clearTimeout(doneTimer);
-  }, [isReady, onFinish]);
+  }, [fadingOut, onFinish]);
 
   const brandLower = brandName.toLowerCase().trim();
   const isDefaultBrand = brandLower === 'mero bike' || brandLower === 'merobike';
