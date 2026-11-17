@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* MeroBike Hybrid Dark Claymorphism Design Tokens (overridden dynamically by applyThemeTokens) */
+:root {
+  --color-bg: #101214;
+  --color-surface-1: #1C2024;
+  --color-surface-2: #252B30;
+  --color-surface-3: #2D343B;
+  --color-accent: #22B8CF;
+  --color-accent-hover: #1CA3B8;
+  --color-accent-fg: #071316;
+  --color-accent-subtle: rgba(34, 184, 207, 0.14);
+  --color-accent-glow: rgba(34, 184, 207, 0.20);
+  --color-text-primary: #F2F4F5;
+  --color-text-secondary: #929BA3;
+  --color-border: #30383E;
+  --color-success: #10B981;
+  --color-success-subtle: rgba(16, 185, 129, 0.14);
+  --color-warning: #F59E0B;
+  --color-warning-subtle: rgba(245, 158, 11, 0.14);
+  --color-error: #EF4444;
+  --color-error-subtle: rgba(239, 68, 68, 0.14);
+
+  /* Hybrid Claymorphism Elevation & Inset Tokens */
+  --clay-raised: inset 0 1px 0 rgba(255, 255, 255, 0.065), inset 0 -1px 0 rgba(0, 0, 0, 0.28), 0 10px 24px -8px rgba(0, 0, 0, 0.62), 0 3px 8px -2px rgba(0, 0, 0, 0.42);
+  --clay-raised-sm: inset 0 1px 0 rgba(255, 255, 255, 0.06), inset 0 -1px 0 rgba(0, 0, 0, 0.24), 0 5px 12px -4px rgba(0, 0, 0, 0.52), 0 1px 3px rgba(0, 0, 0, 0.35);
+  --clay-inset: inset 0 2px 5px rgba(0, 0, 0, 0.52), inset 0 1px 2px rgba(0, 0, 0, 0.36), 0 1px 0 rgba(255, 255, 255, 0.04);
+  --clay-btn-primary: inset 0 1px 0 rgba(255, 255, 255, 0.32), inset 0 -2px 0 rgba(0, 0, 0, 0.18), 0 6px 14px -4px rgba(0, 0, 0, 0.52), 0 2px 4px rgba(0, 0, 0, 0.30);
+  --clay-btn-primary-pressed: inset 0 2px 5px rgba(0, 0, 0, 0.34), 0 1px 2px rgba(0, 0, 0, 0.35);
+  --clay-topbar: 0 4px 16px -6px rgba(0, 0, 0, 0.55);
+  --clay-nav: 0 -6px 20px -6px rgba(0, 0, 0, 0.60), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Hybrid Dark Claymorphism selective surface utilities */
+.clay-raised {
+  box-shadow: var(--clay-raised);
+}
+
+.clay-raised-sm {
+  box-shadow: var(--clay-raised-sm);
+}
+
+.clay-inset {
+  box-shadow: var(--clay-inset);
+}
+
+.clay-btn-primary {
+  box-shadow: var(--clay-btn-primary);
+}
+.clay-btn-primary:active:not(:disabled) {
+  box-shadow: var(--clay-btn-primary-pressed);
+}
+
+.clay-btn-secondary {
+  box-shadow: var(--clay-raised-sm);
+}
+.clay-btn-secondary:active:not(:disabled) {
+  box-shadow: var(--clay-inset);
+}
+
+.clay-topbar {
+  box-shadow: var(--clay-topbar);
+}
+
+.clay-nav {
+  box-shadow: var(--clay-nav);
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent);
+  }
+}
+
+/* Safe-area helpers for mobile PWA notches & home indicators */
+.pb-safe {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Hide scrollbars on horizontal chip/pill bars while preserving swipe */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Subtle custom scrollbars for desktop panels */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.22);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+/* Respect reduced motion user preference across all transitions & animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
