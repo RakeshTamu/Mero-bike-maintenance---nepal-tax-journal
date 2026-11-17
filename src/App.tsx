@@ -636,8 +636,8 @@ export default function App() {
 
       {/* Global Top Application Header with Unified Logo & Compact Language Toggle (Vehicle selector moved to My Garage) */}
       <div className="sticky top-0 z-30">
-        <header className="relative z-20 bg-[var(--color-surface-1)] px-3 sm:px-4 py-2 border-b border-[var(--color-border)] clay-topbar pt-safe">
-          <div className="max-w-4xl mx-auto flex items-center justify-between gap-2">
+        <header className="relative z-20 bg-[var(--color-surface-1)] py-3 border-b border-[var(--color-border)] clay-topbar pt-[calc(0.75rem+env(safe-area-inset-top))]">
+          <div className="max-w-4xl w-full mx-auto px-4 sm:px-5 flex items-center justify-between gap-3">
             {/* Left: Brand Symbol & Official Wordmark ("Mero Bike") */}
             <div className="min-w-0 flex items-center gap-2 sm:gap-2.5">
               <MeroBikeMark className="w-7 h-5 sm:w-8 sm:h-6 shrink-0" themeAware />
@@ -651,7 +651,7 @@ export default function App() {
               <div
                 role="group"
                 aria-label="Language"
-                className="inline-flex items-center p-0.5 rounded-full bg-[var(--color-surface-2)] border border-[var(--color-border)] clay-inset shrink-0"
+                className="inline-flex items-center gap-0.5 p-1 rounded-full bg-[var(--color-surface-2)] border border-[var(--color-border)] clay-inset shrink-0"
               >
                 <button
                   type="button"
